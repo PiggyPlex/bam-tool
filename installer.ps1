@@ -1,4 +1,45 @@
 #Requires -RunAsAdministrator
+$banner = @"
+
+
+                        ::::::::::::::::::::
+                      ::::::::::::::::::::::::
+                    ::::::::::::::::::::::::::::
+                  :::::::::::::::::::::::::::::::
+                ::::::::::::::::::::::::::::::::::
+               ::::::::::::::::::::::::::::::::::::
+              ::::::::::::::::        :::::::::::::::
+              ::::::::::::::::        ::::::::::::::::
+              ::::::::::::::::        ::::::::::::::::
+              ::::::::::::::::        ::::::::::::::::
+              ::::::::::::::::        ::::::::::::::::
+              ::::::::::::::::        ::::::::::::::::
+              ::::::::::::::::        ::::::::::::::::
+              ::::::::::::::::        ::::::::::::::::
+              ::::::::::::::::        :::::::::::::::
+              ::::::::::::::::        :::::::::::::::
+                ::::::::::::::        ::::::::::::::
+                                      ::::::::::::
+                    :::::::::::::::::::::::::::::
+                  ::::::::::::::::::::::::::::::::
+                 ::::::::::::::::::::::::::::::::::
+                ::::::::::::::::::::::::::::::::::::
+               ::::::::::::::::::::::::::::::::::::::
+              ::::::::::::::::::::::::::::::::::::::::
+
+"@
+Clear-Host
+Write-Host $banner -ForegroundColor Cyan
+Write-Host "                          BAM by Guardian" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "                             " -NoNewline
+Write-Host "IMPORTANT" -BackgroundColor Red -ForegroundColor White
+Write-Host "                     DO NOT CLOSE THIS WINDOW" -ForegroundColor Red
+Write-Host ""
+Write-Host "                This window will close automatically"
+Write-Host "             when you close the main application window."
+Write-Host ""
+Write-Host ""
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
   Write-Host "Please run this script as an administrator."
@@ -12,7 +53,6 @@ $downloadUrl = "https://github.com/PiggyPlex/bam-tool/releases/download/v1.0.0/B
 $installerPath = [System.IO.Path]::Combine($path, "installer.exe")
 Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
 Start-Process -FilePath $installerPath -ArgumentList "/S","/D","`"$path`""
-Write-Host "Do not close this window. This window will close automatically when you close the application."
 $isInstalled = $false
 $exePath = [System.IO.Path]::Combine($path, "BAM by Guardian.exe")
 while (-not $isInstalled) {
