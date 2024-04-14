@@ -3,7 +3,7 @@ $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Pri
 if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
   Write-Host "Please run this script as an administrator."
   Pause
-  exit
+  Exit
 }
 $path = $env:LOCALAPPDATA + "\BAM by Guardian"
 Remove-Item -Path $path -Recurse -Force -ErrorAction Ignore
@@ -12,6 +12,7 @@ $downloadUrl = "https://github.com/PiggyPlex/bam-tool/releases/download/v1.0.0/B
 $installerPath = [System.IO.Path]::Combine($path, "installer.exe")
 Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
 Start-Process -FilePath $installerPath -ArgumentList "/S","/D","`"$path`""
+Write-Host "Do not close this window. This window will close automatically when you close the application."
 $isInstalled = $false
 $exePath = [System.IO.Path]::Combine($path, "BAM by Guardian.exe")
 while (-not $isInstalled) {
@@ -23,4 +24,7 @@ while (-not $isInstalled) {
 Start-Sleep -Milliseconds 500
 Start-Process -FilePath $exePath -Wait
 Start-Sleep -Milliseconds 500
+$uninstallerPath = [System.IO.Path]::Combine($path, "uninstall.exe")
+Start-Process -FilePath $uninstallerPath -ArgumentList "/S","/D","`"$path`""
 Remove-Item -Path $path -Recurse -Force -ErrorAction Ignore
+Exit
