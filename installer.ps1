@@ -43,7 +43,6 @@ Write-Host ""
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
   Write-Host "Please run this script as an administrator."
-  Pause
   Exit
 }
 $path = $env:LOCALAPPDATA + "\BAM by Guardian"
